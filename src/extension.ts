@@ -5,6 +5,7 @@ import * as config from './config';
 import * as util from './util';
 import * as diagnostics from './diagnostics';
 import * as format from './format';
+import * as completions from './completions';
 
 export async function activate(context: vscode.ExtensionContext) {
     const rootPaths = await util.findRootPaths();
@@ -66,6 +67,25 @@ export async function activate(context: vscode.ExtensionContext) {
             }
         } else {
             vscode.window.showWarningMessage('Rust Assist: Rustfmt not found on path, formatting is disabled.');
+        }
+    });
+
+    // ====================================================
+    // Completions
+    // ====================================================
+
+    completions.hasPrerequisites().then(result => {
+        if (result) {
+            const completionManager = new completions.CompletionManager();
+
+            context.subscriptions.push(
+                vscode.languages.registerDefinitionProvider(
+                    completionManager.getDocumentFilter(),
+                    completionManager.getDefinitionProvider()
+                )
+            );
+        } else {
+            vscode.window.showWarningMessage('Rust Assist: Racer not found on path, completions are disabled.');
         }
     });
 }
