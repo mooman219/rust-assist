@@ -1,3 +1,5 @@
+This project is no longer supported. Check out https://rust-analyzer.github.io/
+
 ![Rust Assist logo](https://github.com/mooman219/rust-assist/blob/master/logo.png?raw=true)
 # Rust Assist [![](https://vsmarketplacebadge.apphb.com/version/mooman219.rust-assist.svg)](https://marketplace.visualstudio.com/items?itemName=mooman219.rust-assist)
 
